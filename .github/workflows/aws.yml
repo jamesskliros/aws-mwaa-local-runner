@@ -12,7 +12,7 @@ env:
   ECS_CLUSTER: ECSFargateCluster      # the name of the Amazon ECS cluster name
   ECS_TASK_DEFINITION: task-def.json  # the path to the Amazon ECS task definition
   CONTAINER_NAME: mwaa-cicd-ecs       # the name of the Amazon ECS container
-  IMAGE_TAG: '2.0'                    # the Amazon ECR container image tag
+  IMAGE_TAG: '2_2'                    # the Amazon ECR container image tag
   LOCAL_TAG: amazon/mwaa-local
 
 defaults:
@@ -48,7 +48,8 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ env.IMAGE_TAG }}
-          LOCAL_TAG: ${{ env.LOCAL_TAG }}
+          
+          : ${{ env.LOCAL_TAG }}
         run: |
           # Build the docker container and push it to ECR so that it can be deployed to ECS.
           ./mwaa-local-env build-image
